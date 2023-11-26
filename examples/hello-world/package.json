@@ -11,6 +11,6 @@
     "chalk": "^2.4.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "latest"
+    "@lad-tech/ncc": "latest"
   }
 }

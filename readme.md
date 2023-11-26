@@ -1,7 +1,6 @@
 # ncc
 
 [![CI Status](https://github.com/vercel/ncc/workflows/CI/badge.svg)](https://github.com/vercel/ncc/actions?workflow=CI)
-[![codecov](https://codecov.io/gh/vercel/ncc/branch/main/graph/badge.svg)](https://codecov.io/gh/vercel/ncc)
 
 Simple CLI for compiling a Node.js module into a single file,
 together with all its dependencies, gcc-style.
@@ -25,7 +24,7 @@ together with all its dependencies, gcc-style.
 
 ### Installation
 ```bash
-npm i -g @vercel/ncc
+npm i -g @lad-tech/ncc
 ```
 
 ### Usage
@@ -110,7 +109,7 @@ See [package-support.md](package-support.md) for some common packages and their 
 ### Programmatically From Node.js
 
 ```js
-require('@vercel/ncc')('/path/to/input', {
+require('@lad-tech/ncc')('/path/to/input', {
   // provide a custom cache path or disable caching
   cache: "./custom/cache/path" | false,
   // externals to leave as requires of the build
@@ -126,6 +125,7 @@ require('@vercel/ncc')('/path/to/input', {
   sourceMapRegister: true, // default
   watch: false, // default
   license: '', // default does not generate a license file
+  target: 'es2015', // default
   v8cache: false, // default
   quiet: false, // default
   debugLog: false // default
@@ -152,4 +152,4 @@ When `watch: true` is set, the build object is not a promise, but has the follow
 
 ## Caveats
 
-- Files / assets are relocated based on a [static evaluator](https://github.com/zeit/webpack-asset-relocator-loader#how-it-works). Dynamic non-statically analyzable asset loads may not work out correctly
+- Files / assets are relocated based on a [static evaluator](https://github.com/vercel/webpack-asset-relocator-loader#how-it-works). Dynamic non-statically analyzable asset loads may not work out correctly
