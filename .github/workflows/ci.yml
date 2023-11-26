@@ -7,6 +7,9 @@ on:
     tags:
     - '!*'
   pull_request:
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -34,6 +37,7 @@ jobs:
       with:
         cache: npm
         node-version: ${{ matrix.node }}
+        registry-url: 'https://registry.npmjs.org'
         check-latest: true
     - name: Install Dependencies
       run: npm i global node-gyp && npm i --frozen-lockfile --legacy-peer-deps --force
@@ -41,7 +45,8 @@ jobs:
       run: npm run build
     - name: Maybe Release
       if: matrix.os == 'ubuntu-latest' && matrix.node == 20 && github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: npx semantic-release
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN_ELEVATED }}
-      run: npx semantic-release@19.0.5
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
