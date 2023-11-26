@@ -36,7 +36,7 @@ jobs:
         node-version: ${{ matrix.node }}
         check-latest: true
     - name: Install Dependencies
-      run: npm i global node-gyp && npm i --frozen-lockfile --force
+      run: npm i global node-gyp && npm i --frozen-lockfile --legacy-peer-deps --force
     - name: Build Test Binary
       run: npm run build-test-binary
     - name: Build
